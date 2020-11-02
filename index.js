@@ -101,7 +101,7 @@ function addToFavorite(id) {
   favoriteLocalUsers.push(selectedUser)
   localStorage.setItem("favoriteUsers", JSON.stringify(favoriteLocalUsers))
   alert("favorite success!")
-  renderUserList(getUserByPage(pageStatus))
+  renderUserList(getUserByPage(userList,pageStatus))
 }
 
 function renderPaginator(amount) {
@@ -121,9 +121,9 @@ function renderPaginator(amount) {
   paginator.innerHTML = rawHTML
 }
 
-function getUserByPage(page) {
+function getUserByPage(data,page) {
   const startIndex = (page - 1) * USER_PER_PAGE
-  return userList.slice(startIndex, startIndex + USER_PER_PAGE)
+  return data.slice(startIndex, startIndex + USER_PER_PAGE)
 }
 
 // add event listener -----------------------
@@ -145,7 +145,8 @@ searchForm.addEventListener("submit", function onSearchFormSubmitted(event) {
   } else if (!filterUsers.length) {
     return alert("no user found!!")
   } else {
-    renderUserList(filterUsers)
+    renderUserList(getUserByPage(filterUsers,1))
+    renderPaginator(filterUsers.length)
   }
 })
 
@@ -159,7 +160,7 @@ paginator.addEventListener("click", function paginatorOnClick(event) {
     return
   }
   const id = Number(event.target.dataset.page)
-  renderUserList(getUserByPage(id))
+  renderUserList(getUserByPage(userList,id))
   pageStatus = id
   renderPaginator(userList.length)
 })
@@ -171,7 +172,7 @@ axios
     const usersData = response.data.results
     userList.push(...usersData.filter((user) => user.gender === "female"))
 
-    renderUserList(getUserByPage(1))
+    renderUserList(getUserByPage(userList,1))
     renderPaginator(userList.length)
   })
   .catch((error) => console.log(error))
