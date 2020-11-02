@@ -10,6 +10,6 @@ A simple web application for online dating
 ### Searching
 search users with typing user name in search bar
 ### Favorite List
-In index page, press the `+` button on the user info to keep it into favorite list, and presents favorited users as favorited pattern in the index page
-You can checkout the favorite list in `favorite.html`
-press `x` to remove it from favorite list
+- In index page, press the `+` button on the user info to keep it into favorite list
+- presents favorited users as favorited pattern in the index page
+- You can checkout the favorite list in `favorite.html` ,press `x` to remove it from favorite list
